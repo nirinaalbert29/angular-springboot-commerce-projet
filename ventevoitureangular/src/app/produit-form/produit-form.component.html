@@ -1,0 +1,72 @@
+<div class="container">
+  <h2>
+    @if (produits) {
+      Modification
+    }@else {
+      Ajout nouveau
+    }
+     Produits</h2>
+  <div class="row row-cols-3 justify-center">
+    @if (form) {
+
+      <!-- @if (errors.length) {
+        <div class="alert alert-danger">
+          <ul>
+            @for (error of errors; track error) {
+              <li>{{error}}</li>
+            }
+          </ul>
+        </div>
+      } -->
+
+      <form class="form-control" [formGroup] ="form" (ngSubmit)="save()">
+
+        <div class="form-group">
+          <label for="uname">Code produit:</label>
+          <input type="text" class="form-control" placeholder="Saisir code produit" formControlName="code_pro" >
+          @if (form.get('code_pro')?.hasError('required') && form.get('code_pro')?.touched) {
+            <p class="invalid-feedback d-block">Svp Completer code produit.</p>
+          }
+        </div>
+        <div class="form-group">
+            <label for="uname">Nom produit:</label>
+            <input type="text" class="form-control" placeholder="Saisir nom produit" formControlName="nom_pro" >
+            @if (form.get('nom_pro')?.hasError('required') && form.get('nom_pro')?.touched) {
+              <p class="invalid-feedback d-block">Svp Completer nom produit.</p>
+            }
+        </div>
+        <div class="form-group">
+            <label for="uname">categorie produit:</label>
+            <input type="text" class="form-control" placeholder="Saisir xategorie produit" formControlName="categorie" >
+            @if (form.get('categorie')?.hasError('required') && form.get('categorie')?.touched) {
+              <p class="invalid-feedback d-block">Svp Completer categorie.</p>
+            }
+        </div>
+        <div class="form-group">
+            <label for="uname">Description produit:</label>
+            <input type="text" class="form-control" placeholder="Saisir description produit" formControlName="description" >
+            @if (form.get('description')?.hasError('required') && form.get('description')?.touched) {
+              <p class="invalid-feedback d-block">Svp Completer description produit.</p>
+            }
+        </div>
+        <div class="form-group">
+          <label for="uname">Prix produit:</label>
+          <input type="number" class="form-control" placeholder="Saisir prix produit en Ar" formControlName="prix_pro" >
+          @if (form.get('prix_pro')?.hasError('required') && form.get('prix_pro')?.touched) {
+            <p class="invalid-feedback d-block">Svp Completer prix produit.</p>
+          }
+      </div>
+      <div class="form-group">
+        <label for="image_pro">Image produit:</label>
+        <input type="file" class="form-control" (change)="onFileChange($event)" placeholder="Saisir lien image produit" formControlName="image_pro">
+        @if (form.get('image_pro')?.hasError('required') && form.get('image_pro')?.touched) {
+          <p class="invalid-feedback d-block">Svp Completer image produit.</p>
+        }
+      </div>
+
+        <button type="submit" class="btn btn-info mt-4"> @if (produits) {MODIFIER} @else {AJOUTER}</button>
+        <button class="btn btn-danger mt-4" routerLink="/">Retour</button>
+      </form>
+    }
+  </div>
+  </div>

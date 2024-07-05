@@ -1,0 +1,39 @@
+<h1>Liste des clients</h1>
+
+<div class="text-end">
+  <button class="btn btn-primary" routerLink="/client/new">Nouveau client</button>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NOM</th>
+      <th>EMAIL</th>
+      <th>ADRESSE</th>
+      <th>CIN</th>
+      <th>DATE DE NAISSANCE</th>
+      <th class="text-end">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (client of clients; track client.id) {
+      <tr>
+        <td>{{client.id}}</td>
+        <td>{{client.nom}}</td>
+        <td>{{client.email}}</td>
+        <td>{{client.adresse}}</td>
+        <td>{{client.cin}}</td>
+        <td>{{client.date_naiss}}</td>
+        <td class="text-end">
+          <div class="btn-group">
+            <button class="btn btn-secondary" [routerLink]="[client.id,'edit']">modifier</button>
+            <button class="btn btn-danger" (click)="deleteClient(client.id)">Supprimer</button>
+
+          </div>
+        </td>
+        <!-- <td>{{contact.created_at | date:'dd/MM/yyyy hh:mm A'}}</td> -->
+      </tr>
+    }
+  </tbody>
+</table>

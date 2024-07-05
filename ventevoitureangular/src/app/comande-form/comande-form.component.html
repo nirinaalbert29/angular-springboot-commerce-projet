@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Modification Comande</h2>
+  <div class="row row-cols-3 justify-center">
+    @if (form) {
+      @if (errors.length) {
+        <div class="alert alert-danger">
+          <ul>
+            @for (error of errors; track error) {
+              <li>{{error}}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <form class="form-control" [formGroup] ="form" (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="produit_id">PRODUIT:</label>
+          <select class="form-control" formControlName="produit_id">
+            <option value="">choisir le produit par ici</option>
+            @for (produit of produits; track produit.id) {
+              <option [value]="produit.id">{{ produit.code_pro }} : {{ produit.nom_pro }} ( {{ produit.prix_pro }} Ar)</option>
+            }
+          </select>
+          <!-- <input type="number" class="form-control" placeholder="Saisir id produit" formControlName="produit_id"> -->
+        </div>
+        <div class="form-group">
+            <label for="uname">Quantité comandé:</label>
+            <input type="number" class="form-control" placeholder="Saisir qté comandé" formControlName="qte_com">
+            @if (form.get('qte_com')?.hasError('required') && form.get('qte_com')?.touched) {
+
+              <p class="invalid-feedback d-block">Svp Completer qté comandé.</p>
+            }
+        </div>
+        <input type="hidden" class="form-control" placeholder="statut de comande" formControlName="statut_com" readonly>
+        <button type="submit" class="btn btn-info mt-4">MODIFIER</button>
+        <button class="btn btn-danger mt-4" routerLink="/comande/list">Retour</button>
+      </form>
+    }
+  </div>
+  </div>

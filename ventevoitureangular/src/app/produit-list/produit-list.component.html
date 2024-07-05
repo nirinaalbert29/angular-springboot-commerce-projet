@@ -1,0 +1,43 @@
+<div class="container my-4">
+  <h1 class="d-flex justify-content-between align-items-center">
+    Liste des produits
+    <button class="btn btn-primary" *ngIf="isAdmin" routerLink="/produit/new">Nouveau produit</button>
+  </h1>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>CODE PROD</th>
+      <th>NOM PROD</th>
+      <th>CATEGORIE</th>
+      <th>DESCRIPTION</th>
+      <th>PRIX UNITAIRE</th>
+      <th>IMAGE PROD</th>
+      <th class="text-end">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (produit of produits; track produit.id) {
+      <tr>
+        <td>{{produit.id}}</td>
+        <td>{{produit.code_pro}}</td>
+        <td>{{produit.nom_pro}}</td>
+        <td>{{produit.categorie}}</td>
+        <td>{{produit.description}}</td>
+        <td>{{produit.prix_pro}}</td>
+        <td><img style="width: 100px;" [src]="'data:image/png;base64,'+produit.image_pro" alt="produit image" srcset=""></td>
+        <td class="text-end">
+          <div class="btn-group">
+            <button class="btn btn-secondary" *ngIf = "isAdmin" [routerLink]="[produit.id,'edit']" >modifier</button>
+            <button class="btn btn-danger" *ngIf = "isAdmin" (click)="deleteProduitById(produit.id)" >Supprimer</button>
+            <button class="btn btn-warning" *ngIf = "isUser" (click)="acheter(produit.id,1)" >Acheter</button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+</div>

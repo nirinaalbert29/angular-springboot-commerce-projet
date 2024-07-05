@@ -1,0 +1,37 @@
+<h1>Liste des employée</h1>
+
+<div class="text-end">
+  <button class="btn btn-primary" routerLink="/employee/new">Nouveau Employee</button>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>nom</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Departement</th>
+      <th class="text-end">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (employee of employees; track employee.id) {
+      <tr>
+        <td>{{employee.id}}</td>
+        <td>{{employee.nom}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.phone}}</td>
+        <td>{{employee.departement}}</td>
+        <td class="text-end">
+          <div class="btn-group">
+            <button class="btn btn-secondary" [routerLink]="[employee.id,'edit']">modifier</button>
+            <button class="btn btn-danger" (click)="deleteEmployee(employee)">Supprimer</button>
+
+          </div>
+        </td>
+        <!-- <td>{{contact.created_at | date:'dd/MM/yyyy hh:mm A'}}</td> -->
+      </tr>
+    }
+  </tbody>
+</table>

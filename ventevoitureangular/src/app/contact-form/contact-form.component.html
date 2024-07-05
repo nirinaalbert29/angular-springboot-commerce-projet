@@ -1,0 +1,60 @@
+<div class="container">
+  <h2>
+    @if (employee) {
+      Modification
+    }@else {
+      Ajout nouveau
+    }
+     Employée</h2>
+  <div class="row row-cols-3 justify-center">
+    @if (form) {
+
+      @if (errors.length) {
+        <div class="alert alert-danger">
+          <ul>
+            @for (error of errors; track error) {
+              <li>{{error}}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <form class="form-control" [formGroup] ="form" (ngSubmit)="save()">
+
+        <div class="form-group">
+          <label for="uname">Nom Employee:</label>
+          <input type="text" class="form-control" placeholder="Saisir Nom employee" formControlName="nom" >
+          @if (form.get('nom')?.hasError('required') && form.get('nom')?.touched) {
+            <p class="invalid-feedback d-block">Svp Completer votre nom.</p>
+          }
+        </div>
+        <div class="form-group">
+            <label for="uname">Email Employee:</label>
+            <input type="email" class="form-control" placeholder="Saisir email employee" formControlName="email" >
+            @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+              <p class="invalid-feedback d-block">Svp Completer votre email.</p>
+            }
+            @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+              <p class="invalid-feedback d-block">Veuillez saisir email valide.</p>
+            }
+        </div>
+        <div class="form-group">
+            <label for="uname">Phone Employee:</label>
+            <input type="number" class="form-control" placeholder="Saisir phone employee" formControlName="phone" >
+            @if (form.get('phone')?.hasError('required') && form.get('phone')?.touched) {
+              <p class="invalid-feedback d-block">Svp Completer votre telephone.</p>
+            }
+        </div>
+        <div class="form-group">
+            <label for="uname">Departement Employee:</label>
+            <input type="text" class="form-control" placeholder="Saisir Adresse Employee" formControlName="departement" >
+            @if (form.get('departement')?.hasError('required') && form.get('departement')?.touched) {
+              <p class="invalid-feedback d-block">Svp Completer votre departement.</p>
+            }
+        </div>
+        <button type="submit" class="btn btn-info mt-4"> @if (employee) {MODIFIER}@else {AJOUTER}</button>
+        <button class="btn btn-danger mt-4" routerLink="/employee">Retour</button>
+      </form>
+    }
+  </div>
+  </div>
