@@ -1,0 +1,124 @@
+<div class="container my-4">
+  <h3 class="d-flex justify-content-between text-primary">
+    Liste des produits
+    <button class="btn btn-primary" *ngIf="isAdmin" routerLink="/produit/new">Nouveau produit</button>
+  </h3>
+
+<!-- 
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>CODE PROD</th>
+      <th>NOM PROD</th>
+      <th>CATEGORIE</th>
+      <th>DESCRIPTION</th>
+      <th>PRIX UNITAIRE</th>
+      <th>IMAGE PROD</th>
+      <th class="text-end">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (produit of produits; track produit.id) {
+      <tr>
+        <td>{{produit.id}}</td>
+        <td>{{produit.code_pro}}</td>
+        <td>{{produit.nom_pro}}</td>
+        <td>{{produit.categorie}}</td>
+        <td>{{produit.description}}</td>
+        <td>{{produit.prix_pro}}</td>
+        <td><img style="width: 100px;" [src]="'data:image/png;base64,'+produit.image_pro" alt="produit image" srcset=""></td>
+        <td class="text-end">
+          <div class="btn-group">
+            <button class="btn btn-secondary" *ngIf = "isAdmin" [routerLink]="[produit.id,'edit']" >modifier</button>
+            <button class="btn btn-danger" *ngIf = "isAdmin" (click)="deleteProduitById(produit.id)" >Supprimer</button>
+            <button class="btn btn-warning" *ngIf = "isUser" (click)="acheter(produit.id,1)" >Acheter</button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table> -->
+
+<div class="row">
+  <div class="col-sm-6 col-lg-3" *ngFor="let produit of produits">
+    <mat-card class="cardWithShadow productcard overflow-hidden">
+      <a routerLink="/widgets/cards">
+        <img
+        [src]="'data:image/png;base64,'+produit.image_pro" alt="produit image" srcset=""
+          alt="imgSrc"
+          class="w-100"
+          mat-card-image
+        />
+      </a>
+      <mat-card-content class="p-b-24 p-t-12 position-relative">
+
+        <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{
+          produit.nom_pro
+        }}</mat-card-title>
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <h6 class="mat-body-2 f-w-600">${{ produit.prix_pro }}</h6>
+            <span class="f-s-14 m-l-4 text-decoration-line-through"
+              >{{ produit.isLikedByCurrentUser}}</span
+            >
+                 
+          </div>
+          
+          <div class="m-l-auto d-flex gap-4">
+            <div class="btn-group">
+              <button mat-icon-button class="edit-button" *ngIf="isAdmin" [routerLink]="[produit.id, 'edit']" matTooltip="Edit">
+                <mat-icon color="primary">edit</mat-icon>
+              </button>
+              <button mat-icon-button class="delete-button" *ngIf="isAdmin" (click)="deleteProduitById(produit.id)" matTooltip="Delete">
+                <mat-icon color="warn">delete</mat-icon>
+              </button>
+              <button mat-icon-button class="add-button" *ngIf="isUser" (click)="acheter(produit.id, 1)" matTooltip="Add to cart">
+                <mat-icon color="accent">add_shopping_cart</mat-icon>
+              </button>
+
+              <button mat-icon-button class="like-button" *ngIf="isUser" (click)="adorer(produit.id)" matTooltip="Like">
+                <mat-icon [color]="produit.isLikedByCurrentUser ? 'warn' : 'default'">
+                  {{ produit.isLikedByCurrentUser ? 'favorite' : 'favorite_border' }}
+                </mat-icon>
+              </button>                   
+                       
+            </div>
+
+            <!-- <span
+              ><i-tabler name="star" class="fill-warning icon-18"></i-tabler
+            ></span>
+            <span
+              ><i-tabler name="star" class="fill-warning icon-18"></i-tabler
+            ></span>
+            <span
+              ><i-tabler name="star" class="fill-warning icon-18"></i-tabler
+            ></span>
+            <span
+              ><i-tabler name="star" class="fill-warning icon-18"></i-tabler
+            ></span>
+            <span
+              ><i-tabler name="star" class="fill-warning icon-18"></i-tabler
+            ></span> -->
+          </div>
+        </div>
+        <div>
+          <span style="display: inline-flex; align-items: center; color: #ffc107; font-size: 24px;">
+            <mat-icon>star</mat-icon>
+          </span>
+          <span style="display: inline-flex; align-items: center; color: #ffc107; font-size: 24px;">
+            <mat-icon>star</mat-icon>
+          </span>
+          <span style="display: inline-flex; align-items: center; color: #ffc107; font-size: 24px;">
+            <mat-icon>star</mat-icon>
+          </span>
+          <span style="display: inline-flex; align-items: center; color: #ffc107; font-size: 24px;">
+            <mat-icon>star</mat-icon>
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+</div>

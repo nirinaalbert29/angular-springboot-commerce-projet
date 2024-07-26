@@ -3,6 +3,8 @@ package com.alcode.ecommercespb.service;
 import java.io.IOException; 
 import java.util.List;
 
+import com.alcode.ecommercespb.Entity.OurUsers;
+import com.alcode.ecommercespb.dto.ReqRes;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class ProduitServiceImpl implements ProduitService{
 	
 	@Autowired
 	private ProduitRepository produitRepository;
+
+	@Autowired
+	private UsersManagementService userService;
 	
 	private final ModelMapper mapper = new ModelMapper();
 
@@ -70,6 +75,34 @@ public class ProduitServiceImpl implements ProduitService{
 		}
 		produitRepository.deleteById(id);
 		
+	}
+
+	@Override
+	public Produit likeProduit(Long produitId, int userId) throws Exception {
+		Produit produit = findProduitById(produitId);
+
+		ReqRes userReq = userService.getUserById(userId);
+		OurUsers user = userReq.getOurUsers();
+
+		if(produit.getLiked().contains(user)){
+			produit.getLiked().remove(user);
+		}
+		else{
+			produit.getLiked().add(user);
+		}
+		return produitRepository.save(produit);
+	}
+
+	@Override
+	public boolean checkifLikedByCurrentUser(Long produitId) {
+		ReqRes user = userService.getCurentUser();
+		int userId = user.getOurUsers().getId();
+		Produit prod = findProduitById(produitId);
+		if(prod.getLiked().contains(user.getOurUsers())){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 }

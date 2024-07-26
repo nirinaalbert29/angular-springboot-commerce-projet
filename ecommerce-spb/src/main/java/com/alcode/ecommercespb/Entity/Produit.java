@@ -1,15 +1,9 @@
 package com.alcode.ecommercespb.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity; 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +26,10 @@ public class Produit {
 	private String description;
 	
 	private double prix_pro;
+
+	//one to many =  tsy afaka m'like produit afatsy ray ny user
+	@ManyToMany
+	private List<OurUsers> liked = new ArrayList<>();
 	
 	@Lob
 	@Column(length = 1000000)

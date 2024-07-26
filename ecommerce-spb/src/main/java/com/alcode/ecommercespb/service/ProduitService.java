@@ -17,4 +17,8 @@ public interface ProduitService {
 	Produit updateProduit(Long id,ProduitDto produit) throws IOException;
 	
 	void deleteClient(Long id) throws Exception;
+
+	Produit likeProduit(Long produitId,int userId) throws Exception;
+
+	boolean checkifLikedByCurrentUser(Long produitId);
 }
